@@ -16,17 +16,27 @@ import traceback
 # Load Environment Variables
 # ----------------------------
 load_dotenv()
+API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    raise RuntimeError("GEMINI_API_KEY not found")
+
+client = genai.Client(api_key=API_KEY)
+
+print("✅ Gemini client initialized")
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://ai-seller-dashboard.onrender.com"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://ai-seller-dashboard.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # ----------------------------
 # Database
 # ----------------------------
