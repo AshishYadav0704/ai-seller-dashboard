@@ -40,7 +40,7 @@ export default function App() {
   const fetchProducts = async () => {
     setFetchingProducts(true);
     try {
-      const res = await fetch('http://localhost:8000/products');
+      const res = await fetch('https://ai-seller-dashboard.onrender.com');
       const data = await res.json();
       setProducts(data);
     } catch (err) {
