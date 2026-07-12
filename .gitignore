@@ -1,0 +1,15 @@
+# Secret Keys
+.env
+
+# Backend folders & files
+backend/venv/
+backend/__pycache__/
+backend/ecommerce.db
+
+# Frontend folders & files
+frontend/node_modules/
+frontend/dist/
+frontend/.DS_Store
+
+# Mac system files
+.DS_Store
