@@ -163,3 +163,9 @@ async def get_products():
     rows = cur.fetchall()
     conn.close()
     return [dict(row) for row in rows]
+@app.get("/version")
+async def version():
+    return {
+        "version": "Ashish-12-July-v2",
+        "client_defined": "client" in globals()
+    }
