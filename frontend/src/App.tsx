@@ -77,8 +77,12 @@ export default function App() {
           body: formData,
         });
         const result = await res.json();
-        setCategory(result.category);
-        setDescription(result.description);
+if (!res.ok) {
+  throw new Error(result.detail || "Server Error");
+}
+
+setCategory(result.category ?? "");
+setDescription(result.description ?? "");
       } catch (err) {
         console.error("API error:", err);
         setCategory("Error");
@@ -158,7 +162,9 @@ export default function App() {
     setTimeout(() => setCopiedCaption(false), 2000);
   };
 
-  const hasError = category.toLowerCase().includes("error") || description.toLowerCase().includes("error");
+  const hasError =
+  (category || "").toLowerCase().includes("error") ||
+  (description || "").toLowerCase().includes("error");
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100 selection:text-indigo-900 pb-20">
