@@ -40,7 +40,7 @@ export default function App() {
   const fetchProducts = async () => {
     setFetchingProducts(true);
     try {
-      const res = await fetch('https://ai-seller-dashboard.onrender.com');
+      const res = await fetch('https://ai-seller-dashboard.onrender.com/products');
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -72,7 +72,7 @@ export default function App() {
       formData.append('file', files[0]);
 
       try {
-        const res = await fetch('https://ai-seller-dashboard.onrender.com', {
+        const res = await fetch('https://ai-seller-dashboard.onrender.com/analyze-product', {
           method: 'POST',
           body: formData,
         });
@@ -99,7 +99,7 @@ export default function App() {
       });
 
       try {
-        const res = await fetch('https://ai-seller-dashboard.onrender.com', {
+        const res = await fetch('https://ai-seller-dashboard.onrender.com/bulk-upload', {
           method: 'POST',
           body: formData,
         });
@@ -120,7 +120,7 @@ export default function App() {
     formData.append('description', description);
 
     try {
-      const res = await fetch('https://ai-seller-dashboard.onrender.com', {
+      const res = await fetch('https://ai-seller-dashboard.onrender.com/save-product', {
         method: 'POST',
         body: formData,
       });
@@ -139,7 +139,7 @@ export default function App() {
     formData.append('description', description);
 
     try {
-      const res = await fetch('https://ai-seller-dashboard.onrender.com', {
+      const res = await fetch('https://ai-seller-dashboard.onrender.com/generate-marketing', {
         method: 'POST',
         body: formData,
       });
