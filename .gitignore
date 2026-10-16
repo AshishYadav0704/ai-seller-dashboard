@@ -1,15 +1,23 @@
-# Secret Keys
+# Secrets
 .env
+.env.*
+!.env.example
 
-# Backend folders & files
+# Backend
+backend/.venv/
 backend/venv/
-backend/__pycache__/
-backend/ecommerce.db
+backend/data/
+backend/*.db
+__pycache__/
+.pytest_cache/
+.ruff_cache/
 
-# Frontend folders & files
-frontend/node_modules/
+# Frontend
+node_modules/
 frontend/dist/
-frontend/.DS_Store
+*.tsbuildinfo
 
-# Mac system files
+# OS / editors
 .DS_Store
+.idea/
+.vscode/

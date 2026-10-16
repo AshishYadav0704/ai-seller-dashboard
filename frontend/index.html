@@ -2,8 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-   <link rel="icon" href="/images.png" />
-    <title>AiLister </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Turn product photos into ready-to-publish listings and manage your catalog." />
+    <meta name="theme-color" content="#173F31" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <title>Shelfwise</title>
+    <script>
+      // Apply the saved theme before first paint to avoid a light flash in dark mode.
+      try {
+        var saved = localStorage.getItem('shelfwise:theme')
+        var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,1 +1,212 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('/fonts/schibsted-grotesk-latin.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url('/fonts/newsreader-latin.woff2') format('woff2');
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+/*
+ * Colour tokens. Components only use the semantic names below, so the dark
+ * theme is just a second set of values.
+ */
+:root {
+  --canvas: #edf1eb;
+  --surface: #fbfcfa;
+  --surface-2: #f3f6f1;
+  --line: #d6dfd4;
+  --line-strong: #bccbbe;
+  --ink: #16251d;
+  --ink-2: #4b5c52;
+  --ink-3: #7a887f;
+  --pine: #173f31;
+  --pine-strong: #0f2f24;
+  --on-pine: #e3eee6;
+  --fern: #2b7656;
+  --mint: #dcebe0;
+  --brass: #9a722b;
+  --brass-soft: #f3ead6;
+  --danger: #b0412d;
+  --danger-soft: #f7e4df;
+  --focus: #2b7656;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --canvas: #0d1512;
+  --surface: #131e19;
+  --surface-2: #19271f;
+  --line: #24352c;
+  --line-strong: #33493d;
+  --ink: #e2ebe4;
+  --ink-2: #a4b4a9;
+  --ink-3: #728378;
+  --pine: #0a120e;
+  --pine-strong: #3c9670;
+  --on-pine: #d6e5da;
+  --fern: #67c095;
+  --mint: #1b3328;
+  --brass: #d6ad62;
+  --brass-soft: #33291a;
+  --danger: #e58a74;
+  --danger-soft: #3a1f19;
+  --focus: #67c095;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader', ui-serif, Georgia, serif;
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-pine: var(--pine);
+  --color-pine-strong: var(--pine-strong);
+  --color-on-pine: var(--on-pine);
+  --color-fern: var(--fern);
+  --color-mint: var(--mint);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--mint);
+    color: var(--ink);
+  }
+
+  dialog::backdrop {
+    background: rgb(10 22 16 / 0.42);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold whitespace-nowrap transition-colors select-none disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply h-8 rounded-md px-3 text-[13px];
+  }
+  .btn-primary {
+    @apply bg-pine text-on-pine hover:bg-pine-strong dark:bg-fern dark:text-pine dark:hover:bg-pine-strong;
+  }
+  .btn-secondary {
+    @apply border border-line-strong bg-surface text-ink hover:bg-surface-2;
+  }
+  .btn-ghost {
+    @apply text-ink-2 hover:bg-surface-2 hover:text-ink;
+  }
+  .btn-danger {
+    @apply border border-danger/30 bg-danger-soft text-danger hover:border-danger/60;
+  }
+
+  .input {
+    @apply block w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-[15px] text-ink placeholder:text-ink-3 transition-colors;
+  }
+  .input:focus {
+    @apply border-fern outline-none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--fern) 18%, transparent);
+  }
+  .input[aria-invalid='true'] {
+    @apply border-danger;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[13px] font-semibold text-ink-2;
+  }
+
+  .panel {
+    @apply rounded-2xl border border-line bg-surface;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+/* The one bit of ambient motion: a line sweeping the photo while it's being read. */
+@keyframes scan {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1000%);
+    opacity: 0;
+  }
+}
+
+.scan-line {
+  animation: scan 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--line) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}
+
+.sheet[open] {
+  animation: sheet-in 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-line,
+  .skeleton,
+  .sheet[open] {
+    animation: none;
+  }
+}

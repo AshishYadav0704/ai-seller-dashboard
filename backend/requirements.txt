@@ -1,6 +1,6 @@
-fastapi
-uvicorn
-python-multipart
-google-genai
-python-dotenv
-pillow
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+python-dotenv>=1.0
+pillow>=10.3
+google-genai>=1.30,<3
